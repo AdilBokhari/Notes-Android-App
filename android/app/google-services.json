@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "503570014628",
+    "project_id": "code-campp-app",
+    "storage_bucket": "code-campp-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503570014628:android:42d2a73e7e1bfc830a6131",
+        "android_client_info": {
+          "package_name": "com.myapp.codecampapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503570014628-2gruiiicbjddndth061n5ndukrcbbqpv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe0gkImNHYkVxHcdf5V6wZ2OoUOjJSLXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503570014628-2gruiiicbjddndth061n5ndukrcbbqpv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
