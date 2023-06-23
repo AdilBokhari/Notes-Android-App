@@ -1,3 +1,4 @@
+import 'package:codecampapp/constants/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +18,21 @@ class _VerifyEmailState extends State<VerifyEmail> {
       ),
       body: Column(
         children: [
-          const Text("Please verify email address"),
+          const Text("Email verification sent. Verify to login."),
           TextButton(
             onPressed: () async {
               final user = FirebaseAuth.instance.currentUser;
               await user?.sendEmailVerification();
             },
-            child: const Text("Send Email Verification"),
-          )
+            child: const Text("Didn't Receive? Resend."),
+          ),
+          TextButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(loginRoute, (route) => false);
+              },
+              child: const Text("Back to Login Page"))
         ],
       ),
     );
