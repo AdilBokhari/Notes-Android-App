@@ -1,5 +1,5 @@
 import 'package:codecampapp/constants/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:codecampapp/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class VerifyEmail extends StatefulWidget {
@@ -21,14 +21,13 @@ class _VerifyEmailState extends State<VerifyEmail> {
           const Text("Email verification sent. Verify to login."),
           TextButton(
             onPressed: () async {
-              final user = FirebaseAuth.instance.currentUser;
-              await user?.sendEmailVerification();
+              await AuthService.firebase().sendEmailVerifcation();
             },
             child: const Text("Didn't Receive? Resend."),
           ),
           TextButton(
               onPressed: () async {
-                await FirebaseAuth.instance.signOut();
+                await AuthService.firebase().logOut();
                 Navigator.of(context)
                     .pushNamedAndRemoveUntil(loginRoute, (route) => false);
               },
