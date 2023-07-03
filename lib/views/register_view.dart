@@ -57,7 +57,6 @@ class _RegisterViewState extends State<RegisterView> {
               try {
                 await AuthService.firebase()
                     .createUser(email: email, password: password);
-                final user = AuthService.firebase().currentUser;
                 AuthService.firebase().sendEmailVerifcation();
                 Navigator.of(context).pushNamed(verifyEmailRoute);
               } on WeakPasswordAuthException {
