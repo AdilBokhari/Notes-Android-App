@@ -2,7 +2,7 @@ import 'package:codecampapp/constants/routes.dart';
 import 'package:codecampapp/services/auth/auth_exceptions.dart';
 import 'package:codecampapp/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
-import '../utilities/show_error_dialog.dart';
+import '../utilities/dialogs/error_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
