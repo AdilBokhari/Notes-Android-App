@@ -1,8 +1,11 @@
 import 'package:codecampapp/services/auth/auth_service.dart';
+import 'package:codecampapp/services/auth/bloc/auth_bloc.dart';
+import 'package:codecampapp/services/auth/bloc/auth_event.dart';
 import 'package:codecampapp/services/cloud/cloud_note.dart';
 import 'package:codecampapp/services/cloud/firebase_cloud_storage.dart';
 import 'package:codecampapp/views/notes/notes_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constants/routes.dart';
 import '../../enums/menu_action.dart';
 import '../../utilities/dialogs/logout_dialog.dart';
@@ -40,9 +43,7 @@ class _NotesViewState extends State<NotesView> {
               case MenuAction.logout:
                 final shouldlogout = await showLogOutDialog(context);
                 if (shouldlogout) {
-                  await AuthService.firebase().logOut();
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(loginRoute, (_) => false);
+                  context.read<AuthBloc>().add(const AuthEventLogOut());
                 }
             }
           }, itemBuilder: (context) {
