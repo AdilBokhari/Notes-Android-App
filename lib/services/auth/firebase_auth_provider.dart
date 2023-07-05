@@ -4,7 +4,6 @@ import 'package:codecampapp/services/auth/auth_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, FirebaseAuthException;
 import 'package:firebase_core/firebase_core.dart';
-
 import '../../firebase_options.dart';
 
 class FirebaseAuthProvider implements AuthProvider {

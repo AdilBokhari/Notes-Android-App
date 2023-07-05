@@ -4,27 +4,34 @@ import 'package:equatable/equatable.dart';
 
 @immutable
 abstract class AuthState {
-  const AuthState();
+  final bool isLoading;
+  final String? loadingText;
+  const AuthState({required this.isLoading, this.loadingText = 'Please wait'});
 }
 
 class AuthStateUnitialized extends AuthState {
-  const AuthStateUnitialized();
+  const AuthStateUnitialized({required bool isLoading})
+      : super(isLoading: isLoading);
 }
 
 class AuthStateLoggedIn extends AuthState {
   final AuthUser user;
-
-  const AuthStateLoggedIn(this.user);
+  const AuthStateLoggedIn({
+    required this.user,
+    required bool isLoading,
+  }) : super(isLoading: isLoading);
 }
 
 class AuthStateNeedsVerification extends AuthState {
-  const AuthStateNeedsVerification();
+  const AuthStateNeedsVerification({required bool isLoading})
+      : super(isLoading: isLoading);
 }
 
 class AuthStateLoggedOut extends AuthState with EquatableMixin {
   final Exception? exception;
-  final bool isLoading;
-  const AuthStateLoggedOut({required this.exception, required this.isLoading});
+  const AuthStateLoggedOut(
+      {required this.exception, required bool isLoading, String? loadingText})
+      : super(isLoading: isLoading);
 
   @override
   List<Object?> get props => [exception, isLoading];
@@ -32,5 +39,6 @@ class AuthStateLoggedOut extends AuthState with EquatableMixin {
 
 class AuthStateRegistering extends AuthState {
   final Exception? exception;
-  const AuthStateRegistering(this.exception);
+  const AuthStateRegistering({required this.exception, required bool isLoading})
+      : super(isLoading: isLoading);
 }
