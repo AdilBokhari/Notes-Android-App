@@ -1,6 +1,7 @@
-import 'package:codecampapp/constants/routes.dart';
-import 'package:codecampapp/services/auth/auth_service.dart';
+import 'package:codecampapp/services/auth/bloc/auth_bloc.dart';
+import 'package:codecampapp/services/auth/bloc/auth_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({super.key});
@@ -20,16 +21,16 @@ class _VerifyEmailState extends State<VerifyEmail> {
         children: [
           const Text("Email verification sent. Verify to login."),
           TextButton(
-            onPressed: () async {
-              await AuthService.firebase().sendEmailVerifcation();
+            onPressed: () {
+              context
+                  .read<AuthBloc>()
+                  .add(const AuthEventSendEmailVerification());
             },
             child: const Text("Didn't Receive? Resend."),
           ),
           TextButton(
-              onPressed: () async {
-                await AuthService.firebase().logOut();
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil(loginRoute, (route) => false);
+              onPressed: () {
+                context.read<AuthBloc>().add(const AuthEventLogOut());
               },
               child: const Text("Back to Login Page"))
         ],
