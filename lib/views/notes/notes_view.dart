@@ -1,3 +1,4 @@
+import 'package:codecampapp/extensions/buildcontext/loc.dart';
 import 'package:codecampapp/services/auth/auth_service.dart';
 import 'package:codecampapp/services/auth/bloc/auth_bloc.dart';
 import 'package:codecampapp/services/auth/bloc/auth_event.dart';
@@ -9,6 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constants/routes.dart';
 import '../../enums/menu_action.dart';
 import '../../utilities/dialogs/logout_dialog.dart';
+
+extension Count<T extends Iterable> on Stream<T> {
+  Stream<int> get getLength => map((event) => event.length);
+}
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -30,7 +35,16 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Your Notes"),
+        title: StreamBuilder(
+            stream: _notesService.allNotes(ownerUserId: userId).getLength,
+            builder: (context, AsyncSnapshot<int> snapshot) {
+              if (snapshot.hasData) {
+                final noteCount = snapshot.data ?? 0;
+                return Text(context.loc.notes_title(noteCount));
+              } else {
+                return const Text('');
+              }
+            }),
         actions: [
           IconButton(
             onPressed: () {
