@@ -3,14 +3,14 @@ import 'package:codecampapp/services/auth/bloc/auth_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class VerifyEmail extends StatefulWidget {
-  const VerifyEmail({super.key});
+class VerifyEmailView extends StatefulWidget {
+  const VerifyEmailView({super.key});
 
   @override
-  State<VerifyEmail> createState() => _VerifyEmailState();
+  State<VerifyEmailView> createState() => _VerifyEmailViewState();
 }
 
-class _VerifyEmailState extends State<VerifyEmail> {
+class _VerifyEmailViewState extends State<VerifyEmailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

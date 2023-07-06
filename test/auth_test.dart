@@ -14,14 +14,14 @@ void main() {
           throwsA(const TypeMatcher<NotIntializedException>()));
     });
     test('Should be able to be intialized', () async {
-      await provider.intialize();
+      await provider.initialize();
       expect(provider._isIntialized, true);
     });
     test('user should be null after intialization', () {
       expect(provider.currentUser, null);
     });
     test('Should be able to intialize in less than 2s', () async {
-      await provider.intialize();
+      await provider.initialize();
       expect(provider.isIntialized, true);
     }, timeout: const Timeout(Duration(seconds: 2)));
     test('create user should delegate to login function', () async {
@@ -32,13 +32,13 @@ void main() {
       final badPassUser =
           provider.createUser(email: 'any@any.com', password: 'foobarbaz');
       expect(badPassUser,
-          throwsA(const TypeMatcher<WroingPasswordAuthException>()));
+          throwsA(const TypeMatcher<WrongPasswordAuthException>()));
       final user = await provider.createUser(email: 'foo', password: 'bar');
       expect(provider.currentUser, user);
       expect(user.isEmailVerified, false);
     });
     test('Logged in user should be able to get verified', () {
-      provider.sendEmailVerifcation();
+      provider.sendEmailVerification();
       final user = provider.currentUser;
       expect(user, isNotNull);
       expect(user!.isEmailVerified, true);
@@ -73,7 +73,7 @@ class MockAuthProvider implements AuthProvider {
   AuthUser? get currentUser => _user;
 
   @override
-  Future<void> intialize() async {
+  Future<void> initialize() async {
     await Future.delayed(const Duration(seconds: 1));
     _isIntialized = true;
   }
@@ -87,7 +87,7 @@ class MockAuthProvider implements AuthProvider {
       throw UserNotFoundAuthException();
     }
     if (password == 'foobarbaz') {
-      throw WroingPasswordAuthException();
+      throw WrongPasswordAuthException();
     }
     const user =
         AuthUser(isEmailVerified: false, email: 'foo@bar.com', id: 'my_id');
@@ -108,7 +108,7 @@ class MockAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<void> sendEmailVerifcation() async {
+  Future<void> sendEmailVerification() async {
     if (!_isIntialized) {
       throw NotIntializedException();
     }
@@ -119,5 +119,10 @@ class MockAuthProvider implements AuthProvider {
     const newUser =
         AuthUser(isEmailVerified: true, email: 'foo@bar.com', id: 'my_id');
     _user = newUser;
+  }
+
+  @override
+  Future<void> sendPasswordReset({required String toEmail}) {
+    throw UnimplementedError();
   }
 }

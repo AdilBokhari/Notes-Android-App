@@ -1,7 +1,7 @@
 import 'package:codecampapp/services/auth/auth_user.dart';
 
 abstract class AuthProvider {
-  Future<void> intialize();
+  Future<void> initialize();
   AuthUser? get currentUser;
   Future<AuthUser> logIn({required String email, required String password});
 
@@ -9,5 +9,6 @@ abstract class AuthProvider {
       {required String email, required String password});
 
   Future<void> logOut();
-  Future<void> sendEmailVerifcation();
+  Future<void> sendEmailVerification();
+  Future<void> sendPasswordReset({required String toEmail});
 }
